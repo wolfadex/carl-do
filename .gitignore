@@ -1,0 +1,15 @@
+/.vscode
+node_modules
+elm-stuff
+/coverage
+/.nyc_output
+firebase-debug.log
+npm-debug.log
+package-lock.json
+.npmrc
+yarn-error.log
+
+
+.DS_Store
+.idea
+*.iml
