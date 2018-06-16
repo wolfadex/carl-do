@@ -1,7 +1,7 @@
 module Messages exposing (..)
 
 
-import Models exposing (Work)
+import Models exposing (NewWork, User, Work)
 
 
 ---- MESSAGES ----
@@ -12,4 +12,15 @@ type Msg
     | ShowAddWork Bool
     | WorkMoved Work
     | FirebaseResponse String
-    | FirebaseAuth String
+    | FirebaseAuthentication String
+    | FirebaseAuthenticationSuccess User
+    | FirebaseAuthenticationFailure String
+    | FirebaseUnauthenticate
+    | FirebaseUnauthenticateSuccess String
+    | FirebaseUnauthenticateFailure String
+    | FirebaseGetWorkSuccess (List Work)
+    | FirebaseGetWorkFailure String
+    | FirebaseAddWork
+    | FirebaseAddWorkSuccess String
+    | FirebaseAddWorkResult
+    | UpdateNewWork NewWork

@@ -1,20 +1,14 @@
 module Models exposing (..)
 
 
--- import Css
--- import Date exposing (Date)
--- import Html
--- import Html.Styled as Styled
--- import Html.Styled.Attributes as Attributes
--- import Task
--- import Uuid.Barebones as Uuid
--- import Html.Styled.Events as Events
--- import Json.Decode as Decode
--- import Mouse exposing (Position)
--- import Uuid.Barebones as Uuid
+import Date exposing (Date)
 
 
 ---- MODEL ----
+
+
+type alias UserId =
+    String
 
 
 type Firebase e a
@@ -24,12 +18,44 @@ type Firebase e a
     | Success a
 
 
+type UserAuth
+    = SignedOut
+    | SignedIn User
+    | SigningIn
+    | SignInFailed String
+
+
+type alias User =
+    { email : String
+    , displayName : String
+    , emailVerified : Bool
+    , photoURL : String
+    , uid : UserId
+    }
+
+
+type WorkStatus
+    = ToDo
+    | InProgress
+    | Done
+
+
 type alias Work =
-    { id : String
+    { createdBy : UserId
     , title : String
     , description : String
-    -- , createTimestamp : Date
+    , status : WorkStatus
+    , createTimestamp : Date
+    , updateTimestamp : Date
+    , users : List UserId
     }
+
+
+type alias NewWork =
+    { title : String
+    , description : String
+    }
+
 
 type alias WorkList =
     { title : String
@@ -38,7 +64,8 @@ type alias WorkList =
 
 
 type alias Model =
-    { todo : WorkList
-    , inProgress : WorkList
+    { allWork : List Work
     , showAddWork : Bool
+    , newWork : NewWork
+    , user : UserAuth
     }

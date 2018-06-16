@@ -2,7 +2,7 @@ port module Main exposing (main)
 
 import Html
 import Html.Styled as Styled
-import Uuid.Barebones as Uuid
+-- import Uuid.Barebones as Uuid
 
 
 import Messages exposing (..)
@@ -15,12 +15,12 @@ import Views exposing (view)
 ---- TEST ----
 
 
-tempCarl : Work
-tempCarl = { id = toString Uuid.uuidStringGenerator
-           , title = "A Title"
-           , description = "A Description"
-           -- , createTimestamp = Task.perform Date.now
-           }
+-- tempCarl : Work
+-- tempCarl = { id = toString Uuid.uuidStringGenerator
+--            , title = "A Title"
+--            , description = "A Description"
+--            -- , createTimestamp = Task.perform Date.now
+--            }
 
 
 ---- MAIN ----
@@ -37,11 +37,11 @@ main =
 
 init : ( Model, Cmd Msg )
 init =
-     ( { todo = { title = "Todo "
-                , work = [ tempCarl ]
-                }
-       , inProgress = { title = "In Progress", work = [] }
+     ( { allWork = []
        , showAddWork = False
+       , newWork = NewWork "" ""
+       , user = SignedOut
        }
+     -- , firebaseAuthentication "google"
      , Cmd.none
      )
