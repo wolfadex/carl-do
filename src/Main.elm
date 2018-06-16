@@ -2,9 +2,6 @@ port module Main exposing (main)
 
 import Html
 import Html.Styled as Styled
--- import Uuid.Barebones as Uuid
-
-
 import Messages exposing (..)
 import Models exposing (..)
 import Subscriptions exposing (subscriptions)

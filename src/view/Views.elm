@@ -3,23 +3,12 @@ module Views exposing (view)
 
 import Css
 import Date.Extra.Compare as DateCompare
+import Header exposing (header)
 import Html.Styled as Styled
 import Html.Styled.Attributes as Attributes
 import Html.Styled.Events as Events
 import Messages exposing (..)
-import Models exposing (..)
--- import Date exposing (Date)
--- import Html
-import Html.Styled as Styled
-import Html.Styled.Attributes as Attributes
--- import Task
-import Html.Styled.Events as Events
--- import Json.Decode as Decode
--- import Mouse exposing (Position)
--- import Uuid.Barebones as Uuid
-
-
-import Messages exposing (..)
+import NewWorkModal exposing (newWork)
 import Models exposing (..)
 
 
@@ -29,9 +18,9 @@ import Models exposing (..)
 view : Model -> Styled.Html Msg
 view model =
     Styled.div [ cssView ]
-               [ header model
+               [ header model.user
                , body model.allWork
-               , modal model.showAddWork (addWork model)
+               , newWork model.showAddWork model.newWork
                ]
 
 
@@ -46,123 +35,6 @@ cssView =
                    , Css.top (Css.px 0)
                    , Css.bottom (Css.px 0)
                    ]
-
-
-modal : Bool -> Styled.Html Msg -> Styled.Html Msg
-modal show content =
-    case show of
-        True ->
-            Styled.div [ cssModal ]
-                       [ content ]
-        False ->
-            Styled.text ""
-
-
-cssModal : Styled.Attribute msg
-cssModal =
-    Attributes.css [ Css.position Css.absolute
-                   , Css.left (Css.px 0)
-                   , Css.right (Css.px 0)
-                   , Css.top (Css.px 0)
-                   , Css.bottom (Css.px 0)
-                   , Css.backgroundColor (Css.rgba 140 140 140 0.75)
-                   , Css.displayFlex
-                   , Css.alignItems Css.center
-                   , Css.justifyContent Css.center
-                   ]
-
-
-addWork : Model -> Styled.Html Msg
-addWork { newWork } =
-    Styled.div [ cssAddWork ]
-               [ Styled.text "New Todo"
-               , inputLabel "Title"
-                  <| textInput newWork.title (\change ->  UpdateNewWork ({ newWork | title = change }))
-               , inputLabel "Description"
-                  <| textArea newWork.description (\change ->  UpdateNewWork ({ newWork | description = change }))
-               , addWorkOk
-               ]
-
-
-cssAddWork : Styled.Attribute msg
-cssAddWork =
-    Attributes.css [ Css.backgroundColor (Css.rgb 255 255 255)
-                   , Css.displayFlex
-                   , Css.flexDirection Css.column
-                   , Css.padding (Css.rem 1)
-                   ]
-
-addWorkOk : Styled.Html Msg
-addWorkOk =
-    Styled.button [ Events.onClick FirebaseAddWork
-                  -- ,
-                  ]
-                  [ Styled.text "Add" ]
-
-
-inputLabel : String -> Styled.Html msg -> Styled.Html msg
-inputLabel label input =
-    Styled.label [ cssInputLabel ]
-                 [ Styled.text label
-                 , input
-                 ]
-
-
-cssInputLabel : Styled.Attribute msg
-cssInputLabel =
-    Attributes.css [ Css.displayFlex
-                   , Css.flexDirection Css.column
-                   , Css.marginTop (Css.rem 1)
-                   ]
-
-
-textInput : String -> (String -> msg) -> Styled.Html msg
-textInput value onChange =
-    Styled.input [ Attributes.value value
-                 , Events.onInput onChange
-                 ]
-                 []
-
-
-textArea : String -> (String -> msg) -> Styled.Html msg
-textArea value onChange =
-    Styled.textarea [ Attributes.value value
-                    , Events.onInput onChange
-                    ]
-                    []
-
-
-header : Model -> Styled.Html Msg
-header model =
-    Styled.div [ cssHeader ]
-               [ Styled.text "Carl is here to \"help\": "
-               , userStateEl model
-               ]
-
-
-userStateEl : Model -> Styled.Html Msg
-userStateEl model =
-    case model.user of
-       SignedOut ->
-           signInButton
-       SignedIn user ->
-           signOutButton user.displayName
-       SigningIn ->
-           Styled.text "User Loading . . ."
-       SignInFailed string ->
-           Styled.text <| "User Error: " ++ string
-
-
-signInButton : Styled.Html Msg
-signInButton =
-    Styled.button [ Events.onClick (FirebaseAuthentication "google") ]
-                  [ Styled.text "Sign In" ]
-
-
-signOutButton : String -> Styled.Html Msg
-signOutButton displayName =
-    Styled.button [ Events.onClick FirebaseUnauthenticate ]
-                  [ Styled.text <| "Sign Out " ++ displayName ]
 
 
 body : List Work -> Styled.Html Msg
@@ -203,16 +75,6 @@ cssBody : Styled.Attribute msg
 cssBody =
     Attributes.css [ Css.displayFlex
                    , Css.flex (Css.num 1)
-                   ]
-
-
-cssHeader : Styled.Attribute msg
-cssHeader =
-    Attributes.css [ Css.height (Css.rem 4)
-                   , Css.fontSize (Css.rem 2)
-                   , Css.borderBottom3 (Css.rem 0.2) Css.solid (Css.rgb 0 0 0)
-                   , Css.width (Css.vw 100)
-                   , Css.textAlign Css.center
                    ]
 
 
