@@ -22,5 +22,6 @@ type Msg
     | FirebaseGetWorkFailure String
     | FirebaseAddWork
     | FirebaseAddWorkSuccess String
+    | FirebaseAddWorkFailure String
     | FirebaseAddWorkResult
     | UpdateNewWork NewWork

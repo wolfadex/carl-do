@@ -9,17 +9,6 @@ import Update exposing (update)
 import Views exposing (view)
 
 
----- TEST ----
-
-
--- tempCarl : Work
--- tempCarl = { id = toString Uuid.uuidStringGenerator
---            , title = "A Title"
---            , description = "A Description"
---            -- , createTimestamp = Task.perform Date.now
---            }
-
-
 ---- MAIN ----
 
 
@@ -39,6 +28,5 @@ init =
        , newWork = NewWork "" ""
        , user = SignedOut
        }
-     -- , firebaseAuthentication "google"
      , Cmd.none
      )

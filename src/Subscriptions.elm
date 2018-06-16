@@ -35,7 +35,7 @@ port firebaseFirestoreGetWorkFailure : (String -> msg) -> Sub msg
 
 port firebaseFirestoreAdd : (String, Encode.Value) -> Cmd msg
 port firebaseFirestoreAddSuccess : (String -> msg) -> Sub msg
--- port firebaseFirestoreAddFailure : msg -> Sub msg
+port firebaseFirestoreAddFailure : (String -> msg) -> Sub msg
 
 
 subscriptions : Model -> Sub Msg
@@ -48,7 +48,7 @@ subscriptions model =
         , firebaseFirestoreGetWorkSuccess updateWorkList
         , firebaseFirestoreGetWorkFailure FirebaseGetWorkFailure
         , firebaseFirestoreAddSuccess FirebaseAddWorkSuccess
-        -- , firebaseFirestoreAddFailure NoOp
+        , firebaseFirestoreAddFailure FirebaseAddWorkFailure
         , fromFirebase FirebaseResponse
         , Keyboard.downs (\code -> case (Keys.fromCode code) of
                                       Keys.Escape ->

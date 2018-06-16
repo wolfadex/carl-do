@@ -6,7 +6,6 @@ import Json.Encode as Json
 import Messages exposing (..)
 import Models exposing (..)
 import Subscriptions exposing (firebaseAuthentication, firebaseFirestoreAdd, firebaseUnauthenticate)
--- import Task
 
 
 ---- UPDATE ----
@@ -38,24 +37,38 @@ update msg model =
             ( { model | user = SigningIn }, firebaseUnauthenticate () )
         FirebaseUnauthenticateSuccess _ ->
             ( { model | user = SignedOut }, Cmd.none )
-        FirebaseUnauthenticateFailure s ->
-            -- TODO: Display some message to let the user know it failed
-            ( model, Cmd.none )
+        -- FirebaseUnauthenticateFailure s ->
+        --     -- TODO: Display some message to let the user know it failed
+        --     ( model, Cmd.none )
         FirebaseAddWork ->
             ( model, submitNewWork model )
         FirebaseAddWorkSuccess _ ->
             ( { model | showAddWork = False }, Cmd.none )
         FirebaseGetWorkSuccess workList ->
             ( { model | allWork = workList}, Cmd.none )
-        FirebaseGetWorkFailure err ->
-            -- TODO: Display some message to let the user know if failed
-            ( model, Cmd.none )
+        -- FirebaseGetWorkFailure err ->
+        --     -- TODO: Display some message to let the user know if failed
+        --     ( model, Cmd.none )
         UpdateNewWork newWork ->
             ( { model | newWork = newWork }, Cmd.none )
-        -- DragStart position ->
-        --     ( model, Cmd.none )
-        _ ->
-            ( model, Cmd.none )
+        other ->
+            log ("Unhandled Msg: " ++ (toString other)) ( model, Cmd.none )
+
+
+-- TODO: Figure out of to break up update
+-- updateUser : Msg -> ( UserAuth, Cmd Msg )
+-- updateUser msg model =
+--     case msg of
+--         FirebaseAuthentication how ->
+--             ( SigningIn, firebaseAuthentication how )
+--         FirebaseAuthenticationSuccess user ->
+--             ( SignedIn user, Cmd.none )
+--         FirebaseAuthenticationFailure err ->
+--             ( SignInFailed err , Cmd.none )
+--         FirebaseUnauthenticate ->
+--             ( SigningIn, firebaseUnauthenticate () )
+--         FirebaseUnauthenticateSuccess _ ->
+--             ( SignedOut, Cmd.none )
 
 
 submitNewWork : Model -> Cmd Msg
@@ -73,4 +86,4 @@ submitNewWork { user, newWork } =
                                      ]
                                  )
         other ->
-            (log ("steve" ++ (toString other)) Cmd.none)
+            Cmd.none
