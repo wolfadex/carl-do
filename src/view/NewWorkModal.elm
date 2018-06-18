@@ -1,4 +1,4 @@
-module NewWorkModal exposing (newWork)
+module NewWorkModal exposing (newWorkModel)
 
 
 import Css
@@ -13,8 +13,8 @@ import Models exposing (..)
 ---- NEW WORK MODAL ----
 
 
-newWork : Bool -> NewWork -> Styled.Html Msg
-newWork show work =
+newWorkModel : Bool -> NewWork -> Styled.Html Msg
+newWorkModel show work =
     modal show (addWork work)
 
 

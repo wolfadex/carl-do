@@ -1,4 +1,4 @@
-module Views exposing (view)
+module View exposing (view)
 
 
 import Css
@@ -8,7 +8,7 @@ import Html.Styled as Styled
 import Html.Styled.Attributes as Attributes
 import Html.Styled.Events as Events
 import Messages exposing (..)
-import NewWorkModal exposing (newWork)
+import NewWorkModal exposing (newWorkModel)
 import Models exposing (..)
 
 
@@ -16,11 +16,11 @@ import Models exposing (..)
 
 
 view : Model -> Styled.Html Msg
-view model =
+view { user, allWork, showAddWork, newWork } =
     Styled.div [ cssView ]
-               [ header model.user
-               , body model.allWork
-               , newWork model.showAddWork model.newWork
+               [ header user
+               , body allWork
+               , newWorkModel showAddWork newWork
                ]
 
 

@@ -6,7 +6,7 @@ import Messages exposing (..)
 import Models exposing (..)
 import Subscriptions exposing (subscriptions)
 import Update exposing (update)
-import Views exposing (view)
+import View exposing (view)
 
 
 ---- MAIN ----

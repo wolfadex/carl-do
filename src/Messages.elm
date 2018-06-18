@@ -1,7 +1,7 @@
 module Messages exposing (..)
 
 
-import Models exposing (NewWork, User, Work)
+import Models exposing (..)
 
 
 ---- MESSAGES ----

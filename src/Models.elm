@@ -2,12 +2,17 @@ module Models exposing (..)
 
 
 import Date exposing (Date)
+import Mouse
 
 
 ---- MODEL ----
 
 
 type alias UserId =
+    String
+
+
+type alias WorkId =
     String
 
 
@@ -48,6 +53,7 @@ type alias Work =
     , createTimestamp : Date
     , updateTimestamp : Date
     , users : List UserId
+    , uid : WorkId
     }
 
 
@@ -63,9 +69,18 @@ type alias WorkList =
     }
 
 
+type alias DragAndDrop =
+    { dragId : Maybe WorkId
+    , hoverDropId : Maybe WorkStatus
+    , initialPoint : Mouse.Position
+    , currentPoint : Mouse.Position
+    }
+
+
 type alias Model =
     { allWork : List Work
     , showAddWork : Bool
     , newWork : NewWork
     , user : UserAuth
+    -- , dragModel : DragAndDrop
     }
