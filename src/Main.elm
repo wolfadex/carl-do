@@ -27,6 +27,7 @@ init =
        , showAddWork = False
        , newWork = NewWork "" ""
        , user = SignedOut
+       -- , dragModel = { Nothing Nothing Mouse. }
        }
      , Cmd.none
      )

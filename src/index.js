@@ -6,7 +6,7 @@ import 'firebase/firestore';
 import Elm from './Main.elm';
 
 firebase.initializeApp({
-  apiKey: "AIzaSyB4WYbwvIWE3XSN24-cXrTUzOpbJMwdQp8",
+  apiKey: "----", // Fill in locally
   authDomain: "carl-do.firebaseapp.com",
   databaseURL: "https://carl-do.firebaseio.com",
   projectId: "carl-do",
